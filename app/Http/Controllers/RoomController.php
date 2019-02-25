@@ -33,11 +33,11 @@ class RoomController extends Controller
    */
   public function create()
   {
-      $publishers = Publisher::all();
-      $authors = Author::all();
+      $owner = Owner::all();
+      $address = Address::all();
       return view('public.books.create', [
-          'publishers' => $publishers,
-          'authors'    => $authors
+          'owners' => $owners,
+          'adrdresses'    => $addresses
       ]);
   }
   /**
@@ -48,71 +48,77 @@ class RoomController extends Controller
    */
   public function store(BookRequest $request)
   {
-      $book = Book::create([
+      $room = Room::create([
           'user_id' => $request->user()->id,
-          'publisher_id' => request('publisher'),
+          'owner' => request('owner'),
           'title' => request('title'),
           'slug' => str_slug(request('title'), "-"),
+          'address' => request('address'),
+          'type_id' => request('type'),
+          'prize' => request('prize'),
           'description' => request('description')
       ]);
-      $book->authors()->sync( request('author') );
+      $room->owners()->sync( request('owner') );
       return redirect('/');
   }
   /**
    * Display the specified resource.
    *
-   * @param  \App\Book  $book
+   * @param  \App\Room $book
    * @return \Illuminate\Http\Response
    */
   public function show($slug)
   {
-      $book = Book::where('slug', $slug)->firstOrFail();
-      return view('public.books.show', ['book' => $book]);
+      $room = Room::where('slug', $slug)->firstOrFail();
+      return view('public.rooms.show', ['room' => $room]);
   }
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Book  $book
+   * @param  \App\Room $book
    * @return \Illuminate\Http\Response
    */
-  public function edit(Book $book)
+  public function edit(Room $room)
   {
-      $publishers = Publisher::all();
-      $authors = Author::all();
-      return view('public.books.edit', [
-          'book' => $book,
-          'authors' => $authors,
-          'publishers' => $publishers
+      $type = Type::all();
+      $owner = Owner::all();
+
+      return view('public.rooms.edit', [
+          'room' => $room,
+          'owners' => $owners,
+          'types' => $types
       ]);
   }
   /**
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Book  $book
+   * @param  \App\Room  $book
    * @return \Illuminate\Http\Response
    */
-  public function update(BookRequest $request, Book $book)
+  public function update(RoomRequest $request, Room $room)
   {
-      $book->update([
+      $room->update([
           'title' => request('title'),
-          'publisher_id' => request('publisher'),
+          'type' => request('type'),
           'slug' => str_slug(request('title'), "-"),
+          'address' => request('address'),
+          'prize' => reqiest('prize'),
           'description' => request('description')
       ]);
-      $book->authors()->sync( request('author') );
-      return redirect('/books/'.$book->slug);
+      $room->authors()->sync( request('owner') );
+      return redirect('/books/'.$room->slug);
   }
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Book  $book
+   * @param  \App\Room  $book
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Book $book)
+  public function destroy(Room $room)
   {
-      $book->authors()->detach();
-      $book->delete();
+      $room->owners()->detach();
+      $room->delete();
       return redirect('/');
   }
 

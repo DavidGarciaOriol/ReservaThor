@@ -27,7 +27,7 @@ class OwnerRequest extends FormRequest
             'name' => 'required|min:3',
             'email' => 'required|email',
             'url' => 'required',
-            'address' => 'required'
+            'user_address' => 'required'
         ];
     }
 
@@ -42,8 +42,8 @@ class OwnerRequest extends FormRequest
 
             'url.required'      =>  'El :attribute es requerido',
 
-            'address.required'  =>  'El :attribute es requerido',
-            'address.min'       =>  'El :attribute debe tener al menos 10 caracteres'
+            'user_address.required'  =>  'El :attribute es requerido',
+            'user_address.min'       =>  'El :attribute debe tener al menos 10 caracteres'
         ];
     }
 }

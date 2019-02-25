@@ -24,7 +24,7 @@ class RoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
+            'title' => 'required|min:3',
             'owner' => 'required|exists:owner,id',
             'type' => 'required|min:3',
             'address' => 'required|exists:address,id',
