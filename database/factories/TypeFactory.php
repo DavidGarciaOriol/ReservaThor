@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Publisher;
+use App\Type;
 
 $factory->define(Model::class, function (Faker $faker) {
 
@@ -9,8 +9,6 @@ $factory->define(Model::class, function (Faker $faker) {
 
     return [
       'name' => $name,
-      'slug' => str_slug($name),
-      'url' => $faker->domainName(),
       'description' => $faker->lorem()
     ];
 });

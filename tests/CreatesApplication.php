@@ -15,6 +15,8 @@ trait CreatesApplication
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
+        Telescope::ignoreMigrations();
+
         $app->make(Kernel::class)->bootstrap();
 
         return $app;
