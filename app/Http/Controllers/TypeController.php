@@ -5,7 +5,7 @@ use App\Type;
 use Illuminate\Http\Request;
 use App\Http\Requests\TypeRequest;
 
-class PublisherController extends Controller
+class TypeController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        $types = Type::paginate(10);
+        $types = Type::paginate(8);
         return view('public.types.index', compact('types'));
     }
     /**
@@ -40,11 +40,10 @@ class PublisherController extends Controller
      */
     public function store(TypeRequest $request)
     {
-        Publisher::create([
+        Type::create([
             'name' => request('name'),
             'slug' => str_slug(request('name'), "-"),
-            'url' => request('url'),
-            'type_description' => request('type_description')
+            'description' => request('description')
         ]);
         return redirect('/');
     }
@@ -81,8 +80,7 @@ class PublisherController extends Controller
         $type->update([
             'name' => request('name'),
             'slug' => str_slug(request('name'), "-"),
-            'url'   => request('url'),
-            'type_description' => request('type_description')
+            'description' => request('description')
 
         ]);
         return redirect('/types/'.$type->slug);

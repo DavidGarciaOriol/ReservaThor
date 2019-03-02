@@ -13,15 +13,13 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->foreign('type_id')->references('id')->on('types');
-
             $table->integer('user_id')->unsigned();
             $table->string('slug')->unique();
             $table->string('title');
             $table->text('description');
             $table->timestamps();
 
+            //$table->foreign('type_id')->references('id')->on('types');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
