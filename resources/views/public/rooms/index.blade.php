@@ -20,8 +20,6 @@
                     <img class="img-fluid" src="{{ $room->cover }}" alt="">
                 </div>
                 <div class="col">
-                    <h5 class="card-title">Owner: <a href="{{ route('userrooms.index', $room->user->slug) }}" title="{{ $room->user->name }}'s room list">{{ $room->user->name }}</a></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ str_plural("Owner", $room->owners->count())}}: {{ $room->owners->pluck('name')->implode(', ') }}</h6>
                     <h6 class="card-subtitle mb-2 text-muted">Type: {{ $room->type->name }}</h6>
                     <p class="card-text">{{ str_limit($room->description, 300) }}</p>
 

@@ -10,6 +10,7 @@
             @endif
         </div>
     </div>
+
     <div class="col">
         <div class="form-group">
             <label for="portrait">Portrait</label>
@@ -22,25 +23,7 @@
         </div>
     </div>
 </div>
-<div class="form-group">
-    <label for="owner">Owner</label>
-    <select class="form-control {{ $errors->has('owner')?"is-invalid":"" }}" id="owner" name="owner[]" multiple>
-        @foreach($owners as $owner)
-            <option value="{{ $owner->id }}"
-                @if( !$errors->isEmpty() )
-                    {{ in_array($owner->id, old('owner') ?? [] )?"selected":"" }}
-                @elseif( isset($room) )
-                    {{ $room->owners->contains($owner->id)?"selected":"" }}
-                @endif
-            >{{ $owner->name }}</option>
-        @endforeach
-    </select>
-    @if( $errors->has('owner') )
-    <div class="invalid-feedback">
-        {{ $errors->first('owner') }}
-    </div>
-    @endif
-</div>
+
 <div class="form-group">
     <div class="row d-flex align-items-end">
         <div class="col-10">
@@ -69,6 +52,7 @@
         </div>
     </div>
 </div>
+
 <div class="form-group">
     <label for="description">Description</label>
     <textarea class="form-control {{ $errors->has('description')?"is-invalid":"" }}" id="description" name="description" rows="10" placeholder="Room Description" required>{{ isset($room)?$room->description:old('description') }}</textarea>

@@ -9,7 +9,7 @@
         {{ $types->links() }}
     </div>
 
-    @forelse($types as $type)
+    @foreach($types as $type)
 
     <div class="card mb-2">
         <div class="card-header">
@@ -20,6 +20,6 @@
         </div>
     </div>
 
-    @endforelse
+    @endforeach
     
 @endsection
