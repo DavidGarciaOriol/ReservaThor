@@ -23,7 +23,7 @@ class RoomController extends Controller
    */
   public function index()
   {
-      $rooms = Room::paginate(10);
+      $rooms = Room::paginate(6);
       return view('public.rooms.index')->withRooms($rooms);
   }
   /**
@@ -33,12 +33,11 @@ class RoomController extends Controller
    */
   public function create()
   {
-      $owner = Owner::all();
-      $address = Address::all();
-      return view('public.books.create', [
-          'owners' => $owners,
-          'adrdresses'    => $addresses
-      ]);
+    $types = Type::all();
+      return view('public.rooms.create', [
+
+        'types'    => $types
+    ]);
   }
   /**
    * Store a newly created resource in storage.
@@ -46,11 +45,10 @@ class RoomController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(BookRequest $request)
+  public function store(RoomRequest $request)
   {
       $room = Room::create([
           'user_id' => $request->user()->id,
-          'owner' => request('owner'),
           'title' => request('title'),
           'slug' => str_slug(request('title'), "-"),
           'address' => request('address'),
@@ -58,13 +56,12 @@ class RoomController extends Controller
           'prize' => request('prize'),
           'description' => request('description')
       ]);
-      $room->owners()->sync( request('owner') );
       return redirect('/');
   }
   /**
    * Display the specified resource.
    *
-   * @param  \App\Room $book
+   * @param  \App\Room $room
    * @return \Illuminate\Http\Response
    */
   public function show($slug)
@@ -75,17 +72,15 @@ class RoomController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Room $book
+   * @param  \App\Room $room
    * @return \Illuminate\Http\Response
    */
   public function edit(Room $room)
   {
-      $type = Type::all();
-      $owner = Owner::all();
+      $types = Type::all();
 
       return view('public.rooms.edit', [
           'room' => $room,
-          'owners' => $owners,
           'types' => $types
       ]);
   }
@@ -93,7 +88,7 @@ class RoomController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Room  $book
+   * @param  \App\Room  $room
    * @return \Illuminate\Http\Response
    */
   public function update(RoomRequest $request, Room $room)
@@ -103,23 +98,21 @@ class RoomController extends Controller
           'type' => request('type'),
           'slug' => str_slug(request('title'), "-"),
           'address' => request('address'),
-          'prize' => reqiest('prize'),
+          'prize' => request('prize'),
           'description' => request('description')
       ]);
-      $room->authors()->sync( request('owner') );
-      return redirect('/books/'.$room->slug);
+      return redirect('/rooms/'.$room->slug);
   }
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Room  $book
+   * @param  \App\Room  $room
    * @return \Illuminate\Http\Response
    */
   public function destroy(Room $room)
   {
-      $room->owners()->detach();
-      $room->delete();
-      return redirect('/');
+    $room->delete();
+    return redirect('/');
   }
 
 }

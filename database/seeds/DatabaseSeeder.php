@@ -12,9 +12,9 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         factory(App\User::class, 2)->create();
-        factory(App\Type::class, 5)->create();
-        $rooms = factory(App\Room::class, 20)->create();
-        $owners = factory(App\Owner::class, 5)->create();
+        factory(App\Type::class, 8)->create();
+        factory(App\Room::class, 6)->create();
+        
 
         // foreach($rooms as $room){
         //     $room->owners()->attach(
@@ -22,10 +22,5 @@ class DatabaseSeeder extends Seeder
         //     );
         // }
         
-        $rooms->each(function(App\Room $room) use ($owners){
-            $room->owners()->attach(
-                $owners->random(random_int(1,3))
-            );
-        });
     }
 }

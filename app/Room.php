@@ -3,17 +3,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
-    protected $fillable = ['user_id', 'owner_id','title', 'slug', 'description', 'type', 'address'];
+    protected $fillable = ['user_id','title', 'slug', 'description', 'type_id', 'address'];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function Owner()
-    {
-        return $this->belongsTo(Owner::class);
-    }
     public function Type()
     {
-        return $this->belongsToMany(Type::class);
+        return $this->belongsTo(Type::class);
+    }
+    public function Reservation(){
+        return $this->hasMany(Reservation::class);
     }
 }

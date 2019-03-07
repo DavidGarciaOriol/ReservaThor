@@ -25,11 +25,10 @@ class RoomRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3',
-            'owner' => 'required|exists:owner,id',
-            'type' => 'required|min:3',
-            'address' => 'required|exists:address,id',
-            'prize' => 'required'
-            'description' => 'required'
+            'type' => 'required',
+            'address' => 'required|min:6',
+            'prize' => 'required',
+            'description' => 'required|min:10'
         ];
     }
 
@@ -39,17 +38,14 @@ class RoomRequest extends FormRequest
             'title.required'=> 'El :attribute es requerido.',
             'title.min' => 'El :attribute debe tener al menos 3 caracteres.',
 
-            'owner.required' => 'El :attribute es requerido.',
-            'owner.exists' => 'El :attribute debe ser un usuario registrado en al base de datos.',
-
             'type.required' => 'El :attribute es requerido.',
 
-            'adress.required' => 'El campo de :attribute no puede estar vacío.'
+            'adress.required' => 'El campo de :attribute no puede estar vacío.',
             'adress.exists' => 'Debe introducir una :attribute ya registrada en la base de datos.',
 
             'description.required' => 'La :attribute es requerida.',
 
-            'prize.required' => 'Se requiere especificar un :attribute de la sala.'
+            'prize.required' => 'Se requiere especificar un :attribute base para la reserva de la sala.'
         ];
     }
 
@@ -57,10 +53,9 @@ class RoomRequest extends FormRequest
     {
         return [
             'title' => 'título de la sala',
-            'owner' => 'propietario de la sala',
             'type' => 'tipo de la sala',
             'address' => 'dirección',
-            'prize' => 'precio'
+            'prize' => 'precio',
             'description' => 'descripción de la sala'
         ];
     }
