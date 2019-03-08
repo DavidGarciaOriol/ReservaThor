@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Room;
-use App\Owner;
-use App\Address;
+use App\Type;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\RoomRequest;
 

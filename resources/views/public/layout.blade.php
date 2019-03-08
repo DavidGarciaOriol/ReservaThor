@@ -20,8 +20,8 @@
                       Rooms
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{ route('books.index') }}">Room List</a>
-                      <a class="dropdown-item" href="{{ route('books.create') }}">Create Room/a>
+                      <a class="dropdown-item" href="{{ route('rooms.index') }}">Room List</a>
+                      <a class="dropdown-item" href="{{ route('rooms.create') }}">Create Room/a>
                     </div>
                 </li>
             </ul>

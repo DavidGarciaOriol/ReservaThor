@@ -8,7 +8,8 @@ Route::resource('/rooms', 'RoomController');
 Route::resource('/types', 'TypeController');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/users/{user}/rooms', 'UserRoomController@index')->name('userrooms.index');
+Route::resource('/reservations', 'ReservationsController')->middleware('auth');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

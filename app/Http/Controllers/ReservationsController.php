@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Reservation;
+//use App\Room;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 
-class ReservationController extends Controller
+class ReservationsController extends Controller
 {
   public function __construct()
   {
@@ -31,11 +32,7 @@ class ReservationController extends Controller
    */
   public function create()
   {
-    $types = Type::all();
-      return view('public.reservations.create', [
-
-        'types'    => $types
-    ]);
+    return view('public.reservations.create');
   }
   /**
    * Store a newly created resource in storage.
@@ -43,17 +40,22 @@ class ReservationController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(ReservationRequest $request)
+  public function store(ReservationRequest $request /*, Room $room*/ )
   {
       $reservation = Reservation::create([
         
         'name' => request('name'),
 
-        'totalPrize' => request('totalPrize'),
+        'totalPrize' => '100', //$room->prize * $days,
 
-        'startDate' => request('startDate'),
+        /*$datetime1 = */'startDate' => request('startDate'),
 
-        'endDate' => request('endDate')
+        /*$datetime2 = */'endDate' => request('endDate'),
+
+        //$interval = request($datetime1)->diff($datetime2),
+
+        //$days = $interval->format('%a')
+
       ]);
       return redirect('/reservations');
   }
