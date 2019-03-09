@@ -22,6 +22,7 @@ class CreateReservationsTable extends Migration
             $table->string('slug')->unique();
             $table->date('startDate')->unique();
             $table->date('endDate')->unique();
+            $table->integer('totalPrize');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

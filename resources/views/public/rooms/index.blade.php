@@ -22,6 +22,7 @@
                 <div class="col">
                     <h6 class="card-subtitle mb-2 text-muted">Type: {{ $room->type->name }}</h6>
                     <p class="card-text">{{ str_limit($room->description, 300) }}</p>
+                    <h4> {{ $room->prize }}$ </h4>
 
                     @include('public.rooms.partials.buttons')
 

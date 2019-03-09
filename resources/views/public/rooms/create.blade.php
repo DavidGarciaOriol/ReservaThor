@@ -3,7 +3,7 @@
 @section('title', 'New room')
 
 @section('content')
-<h1>Add New Room</h1>
+<h1>Create New Room</h1>
 <form action="/rooms" method="post" enctype="multipart/form-data" novalidate>
 
     @csrf

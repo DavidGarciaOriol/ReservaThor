@@ -53,6 +53,20 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="title">Address</label>
+            <input type="text" class="form-control {{ $errors->has('address')?"is-invalid":"" }}" id="address" name="address" placeholder="Introduce the room address" value="{{ isset($room)?$room->address:old('address') }}" required>
+            @if( $errors->has('address'))
+            <div class="invalid-feedback">
+                {{ $errors->first('address') }}
+            </div>
+            @endif
+        </div>
+    </div>
+</div>
+
 <div class="form-group">
     <label for="description">Description</label>
     <textarea class="form-control {{ $errors->has('description')?"is-invalid":"" }}" id="description" name="description" rows="10" placeholder="Room Description" required>{{ isset($room)?$room->description:old('description') }}</textarea>

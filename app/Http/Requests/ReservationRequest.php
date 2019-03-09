@@ -26,9 +26,9 @@ class ReservationRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             
-            'startDate' => 'required|date_format:d.m.Y',
+            'startDate' => 'required',
             
-            'endDate' => 'required|date_format:d.m.Y'
+            'endDate' => 'required'
         ];
     }
 
