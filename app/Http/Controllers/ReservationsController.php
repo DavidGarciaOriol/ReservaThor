@@ -22,8 +22,8 @@ class ReservationsController extends Controller
    */
   public function index()
   {
-      $reservations = Reservation::paginate(3);
-      return view('public.reservations.index')->withReservations($reservations);
+    $reservations = Reservation::latest()->paginate(8);
+    return view('public.reservations.index')->withReservations($reservations);
   }
   /**
    * Show the form for creating a new resource.
@@ -40,13 +40,17 @@ class ReservationsController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(ReservationRequest $request /*, Room $room*/ )
+  public function store(ReservationRequest $request, Reservation $reservation)
   {
       $reservation = Reservation::create([
+
+        'user_id' => $reservation->user()->id,
+
+        'room_id' => $reservation->room()->id,
         
         'name' => request('name'),
 
-        'totalPrize' => '100', //$room->prize * $days,
+        'totalPrize' => '100', //$request->room()->prize * $days,
 
         /*$datetime1 = */'startDate' => request('startDate'),
 

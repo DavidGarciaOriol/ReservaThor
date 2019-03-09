@@ -47,9 +47,6 @@
             </div>
             @endif
         </div>
-        <div class="col-2">
-            <a class="btn btn-primary" href="{{ route('types.create') }}" target="_blank">New type</a>
-        </div>
     </div>
 </div>
 
@@ -61,6 +58,20 @@
             @if( $errors->has('address'))
             <div class="invalid-feedback">
                 {{ $errors->first('address') }}
+            </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="title">Price</label>
+            <input type="number" class="form-control {{ $errors->has('prize')?"is-invalid":"" }}" id="prize" name="prize" placeholder="Price $" value="{{ isset($room)?$room->prize:old('prize') }}" required>
+            @if( $errors->has('prize'))
+            <div class="invalid-feedback">
+                {{ $errors->first('prize') }}
             </div>
             @endif
         </div>

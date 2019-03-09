@@ -17,9 +17,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-2">
-                    <img class="img-fluid" src="{{ $room->cover }}" alt="">
+                    <img class="img-fluid" src="http://reservathor.test/storage/{{ $room->portrait }}" alt="">
                 </div>
+                
                 <div class="col">
+
+                    <h5 class="card-title">User: <a href="{{ route('userrooms.index', $room->user->slug) }}" title="{{ $room->user->name }}'s room list">{{ $room->user->name }}</a></h5>
+
                     <h6 class="card-subtitle mb-2 text-muted">Type: {{ $room->type->name }}</h6>
                     <p class="card-text">{{ str_limit($room->description, 300) }}</p>
                     <h4> {{ $room->prize }}$ </h4>

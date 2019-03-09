@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'slug', 'email', 'password',
     ];
 
     /**
@@ -36,4 +36,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function rooms(){
+        return $this->hasMany(Room::class);
+    }
+
+    public function reservations(){
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function owns(Room $room){
+        return $this->id == $room->user_id;
+    }
+
+    // public function ownsReservation(Reservation $reservation){
+    //     return $this->id == $reservation->user_id;
+    // }
+
 }

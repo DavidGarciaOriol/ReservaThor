@@ -9,7 +9,7 @@ class RoomPolicy
 {
     use HandlesAuthorization;
     public function before($user, $ability){
-        if( $user->id == 3 ) return true;
+        if( $user->id == 2 ) return true;
     }
     
     /**

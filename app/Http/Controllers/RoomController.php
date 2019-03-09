@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Room;
 use App\Type;
+use App\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\RoomRequest;
+use App\Notifications\RoomCreated;
 
 class RoomController extends Controller
 {
   public function __construct()
   {
       $this->middleware('auth', [
-          'only' => ['create' , 'store', 'edit', 'update', 'destroy']
+        'only' => ['create' , 'store', 'edit', 'update', 'destroy']
       ]);
+      $this->middleware('can:touch,room',[
+        'only' => ['edit','update','destroy']
+    ]);
   }
   /**
    * Display a listing of the resource.
@@ -23,7 +29,7 @@ class RoomController extends Controller
    */
   public function index()
   {
-      $rooms = Room::paginate(6);
+      $rooms = Room::latest()->paginate(8);
       return view('public.rooms.index')->withRooms($rooms);
   }
   /**
@@ -34,9 +40,8 @@ class RoomController extends Controller
   public function create()
   {
     $types = Type::all();
-      return view('public.rooms.create', [
-
-        'types'    => $types
+    return view('public.rooms.create', [
+        'types' => $types
     ]);
   }
   /**
@@ -47,6 +52,9 @@ class RoomController extends Controller
    */
   public function store(RoomRequest $request)
   {
+
+      $portrait = $request->file('portrait');
+
       $room = Room::create([
           'user_id' => $request->user()->id,
           'title' => request('title'),
@@ -54,9 +62,14 @@ class RoomController extends Controller
           'address' => request('address'),
           'type_id' => request('type'),
           'prize' => request('prize'),
-          'description' => request('description')
+          'description' => request('description'),
+          'portrait' => ($portrait?$portrait->store('portraits','public'):null),
       ]);
-      return redirect('/');
+
+      $user = User::find(1);
+      $user->notify(new RoomCreated($room));
+
+      return redirect('/rooms');
   }
   /**
    * Display the specified resource.
@@ -93,13 +106,20 @@ class RoomController extends Controller
    */
   public function update(RoomRequest $request, Room $room)
   {
+    $portrait = $request->file('portrait');
+
+    if( $portrait && $room->portrait  ){
+        Storage::disk('public')->delete($room->portrait);
+    }
+
       $room->update([
           'title' => request('title'),
           'type' => request('type'),
           'slug' => str_slug(request('title'), "-"),
           'address' => request('address'),
           'prize' => request('prize'),
-          'description' => request('description')
+          'description' => request('description'),
+          'portrait' => ($portrait?$portrait->store('portraits','public'):$room->portrait),
       ]);
       return redirect('/rooms/'.$room->slug);
   }
@@ -111,8 +131,13 @@ class RoomController extends Controller
    */
   public function destroy(Room $room)
   {
-    $room->delete();
-    return redirect('/');
-  }
 
+    if( $room->portrait ){
+        Storage::disk('public')->delete($room->portrait);
+    }
+
+    $room->delete();
+    return redirect('/rooms')
+            ->with('message', "The room '{$room->title}' has been deleted.");
+    }
 }
