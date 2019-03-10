@@ -3,7 +3,7 @@
     <div class="col">
         <div class="form-group">
             <label for="name">Reservation Name</label>
-            <input type="text" class="form-control {{ $errors->has('name')?"is-invalid":"" }}" id="name" name="name" placeholder="Introduce the room name" value="{{ isset($room)?$room->name:old('name') }}" required>
+            <input type="text" class="form-control {{ $errors->has('name')?"is-invalid":"" }}" id="name" name="name" placeholder="Introduce a name to identify this reservation" value="{{ isset($room)?$room->name:old('name') }}" required>
             @if( $errors->has('name'))
             <div class="invalid-feedback">
                 {{ $errors->first('name') }}
