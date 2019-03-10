@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
+use Laravel\Telescope\Telescope;
 
 trait CreatesApplication
 {

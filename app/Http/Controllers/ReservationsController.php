@@ -40,13 +40,13 @@ class ReservationsController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(ReservationRequest $request, Reservation $reservation)
+  public function store(ReservationRequest $request)
   {
       $reservation = Reservation::create([
 
-        'user_id' => $reservation->user()->id,
+        'user_id' => $request->user()->id,
 
-        'room_id' => $reservation->room()->id,
+        'room_id' => $request->room()->id,
         
         'name' => request('name'),
 
