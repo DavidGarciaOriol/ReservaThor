@@ -11,8 +11,8 @@
   <p></p>
   <a class="btn btn-primary btn-lg" href="/about" data-toggle="tooltip" data-placement="top" title="Application Information" role="button">About</a>
   <a class="btn btn-primary btn-lg" href="/rooms" data-toggle="tooltip" data-placement="top" title="A list with all rooms" role="button">Room List</a>
-  <a class="btn btn-success btn-lg" href="/rooms/create" data-toggle="tooltip" data-placement="top" title="Create a new Room" role="button">Create</a>
-  <a class="btn btn-secondary btn-lg" href="#" data-toggle="tooltip" data-placement="top" title="Work in Progress" role="button">Make Reservation (Soon)</a>
+  @auth<a class="btn btn-success btn-lg" href="/rooms/create" data-toggle="tooltip" data-placement="top" title="Create a new Room" role="button">Create</a>
+  <a class="btn btn-secondary btn-lg" href="#" data-toggle="tooltip" data-placement="top" title="Work in Progress" role="button">Make Reservation (Soon)</a>@endauth
 </div>
 
 <div class="bd-example">
